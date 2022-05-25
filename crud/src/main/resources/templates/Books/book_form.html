@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${pageTitle}]]</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container-fluid text-center">
+    <h2>[[${pageTitle}]]</h2>
+    <form th:action="@{/books/save}" method="post" th:object="${book}">
+        <input type="hidden" th:field="*{id}">
+        <div class="border border-secondary rounded p-3">
+            <div class="form-group row">
+                <label class="col-sm-2 custom-control-label">Title</label>
+                <div class="col-md-10">
+                    <input type="text" th:field="*{title}" class="form-control" required maxlength="100" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 custom-control-label">Author</label>
+                <div class="col-md-10">
+                    <select  th:field="*{author}" class="form-control" required>
+                        <option value="">Select Author</option>
+                        <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName+' '+author.lastName}">Authors</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 control-label">Date</label>
+                <div class="col-md-10">
+                    <input required type="datetime" class="form-control" th:field="*{whenAdded}" />
+
+                </div>
+            </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary m-2">Save</button>
+                    <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Cancel</button>
+                </div>
+        </div>
+
+
+    </form>
+
+</div>
+<script type="text/javascript">
+    function cancelForm(){
+        window.location = "[[@{/books}]]";
+    }
+</script>
+</body>
+</html>

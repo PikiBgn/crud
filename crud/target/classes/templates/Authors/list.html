@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>ManageAuthors</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div class="m-2"><h2>Manage Authors</h2></div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="author : ${listAuthors}">
+                <tr>
+                    <td th:text="${author.id}">Id</td>
+                    <td th:text="${author.firstName}">first name</td>
+                    <td th:text="${author.lastName}">last name</td>
+                    <td>
+                        <a th:href="@{'/authors/edit/' +${author.id}}">Edit</a>
+                        <a th:href="@{'/authors/delete/' +${author.id}}">Delete</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+        <a class="h4" th:href="@{/authors/new}">Add New Author</a>
+    </div>
+</div>
+
+
+</body>
+</html>
